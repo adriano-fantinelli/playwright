@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import { Salt, parseSalt } from "../src/auth/password.service";
 import { hash } from "bcrypt";
 import { customSeed } from "./customSeed";
-import * as cypressEnv from '../../../cypress.env.json'
 
 if (require.main === module) {
   dotenv.config();
@@ -38,8 +37,8 @@ async function seed(bcryptSalt: Salt) {
   });
 
   const dataTest = {
-    username: cypressEnv.username,
-    password: await hash(cypressEnv.password, bcryptSalt),
+    username: "admin",
+    password: await hash("admin", bcryptSalt),
     roles: ["user"],
   };
   await client.user.upsert({
