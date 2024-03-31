@@ -2,9 +2,83 @@ import * as React from "react";
 import { useState } from "react";
 import { useLogin, useNotify, Notification, defaultTheme } from "react-admin";
 import { ThemeProvider } from "@material-ui/styles";
-import { createTheme } from "@material-ui/core/styles";
+import { Theme, createTheme } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import "./login.scss";
+
+const defaultThemeInvariants = {
+  typography: {
+      h6: {
+          fontWeight: 400,
+      },
+  },
+  sidebar: {
+      width: 240,
+      closedWidth: 50,
+  },
+  components: {
+      MuiAutocomplete: {
+          variants: [
+              {
+                  props: {},
+                  style: ({ theme }: { theme: Theme }) => ({
+                      [theme.breakpoints.down('sm')]: { width: '100%' },
+                  }),
+              },
+          ],
+      },
+      MuiTextField: {
+          defaultProps: {
+              variant: 'filled' as const,
+              margin: 'dense' as const,
+              size: 'small' as const,
+          },
+          variants: [
+              {
+                  props: {},
+                  style: ({ theme }: { theme: Theme }) => ({
+                      [theme.breakpoints.down('sm')]: { width: '100%' },
+                  }),
+              },
+          ],
+      },
+      MuiFormControl: {
+          defaultProps: {
+              variant: 'filled' as const,
+              margin: 'dense' as const,
+              size: 'small' as const,
+          },
+      },
+  },
+};
+
+const themeOptions = {
+  palette: {
+      background: {
+          default: '#fafafb',
+      },
+      secondary: {
+          light: '#6ec6ff',
+          main: '#2196f3',
+          dark: '#0069c0',
+          contrastText: '#fff',
+      },
+  },
+  ...defaultThemeInvariants,
+  components: {
+      ...defaultThemeInvariants.components,
+      MuiFilledInput: {
+          styleOverrides: {
+              root: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  '&$disabled': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  },
+              },
+          },
+      },
+  },
+};
 
 const CLASS_NAME = "login-page";
 
@@ -21,7 +95,7 @@ const Login = ({ theme }: { theme?: object }) => {
   };
 
   return (
-    <ThemeProvider theme={createTheme(defaultTheme)}>
+    <ThemeProvider theme={createTheme(themeOptions)}>
       <div className={`${CLASS_NAME}`}>
         <div className={`${CLASS_NAME}__wrapper`}>
           <div className={`${CLASS_NAME}__box`}>

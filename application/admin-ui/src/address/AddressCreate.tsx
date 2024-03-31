@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   Create,
   SimpleForm,
@@ -9,10 +8,9 @@ import {
   SelectArrayInput,
   NumberInput,
 } from "react-admin";
-
 import { CustomerTitle } from "../customer/CustomerTitle";
 
-export const AddressCreate = (props: CreateProps): React.ReactElement => {
+export const AddressCreate = (props: CreateProps): React.ReactNode => {
   return (
     <Create {...props}>
       <SimpleForm>
