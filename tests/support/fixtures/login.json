@@ -1,0 +1,13 @@
+{
+    "username": {
+        "valid": "admin",
+        "invalid": "invalid"
+    },
+    "password": {
+        "valid": "admin",
+        "invalid": "invalid"
+    },
+    "messages": {
+        "invalidEmailOrPassword": "Invalid email or password"
+    }
+}
