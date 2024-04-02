@@ -1,11 +1,11 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 jobs:
-  test:
+  test:    
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -13,12 +13,36 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
+    
+    - name: Set up node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+ 
+    - name: Run server
+      run: |
+        cd application/server 
+        npm install
+        npm run prisma:generate
+        npm run docker:db
+        npm run db:init
+        nohup npm start &
+          
+    - name: Run admin-ui
+      run: |
+        cd application/admin-ui 
+        npm install
+        nohup yarn start &
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+
     - name: Run Playwright tests
       run: npx playwright test
+      
     - uses: actions/upload-artifact@v3
       if: always()
       with:
