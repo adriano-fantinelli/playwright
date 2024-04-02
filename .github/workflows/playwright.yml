@@ -37,7 +37,7 @@ jobs:
     - name: Run admin-ui
       run: |
         cd application/admin-ui 
-        npm install
+        yarn
         nohup yarn start &
 
     - name: Install dependencies
