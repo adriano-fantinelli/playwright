@@ -15,26 +15,26 @@ import { IsString, IsOptional } from "class-validator";
 @InputType()
 class UserCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @IsOptional()
   @Field(() => String, {
-    nullable: true,
+    nullable: false,
   })
-  firstName?: string | null;
+  firstName?: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @IsOptional()
   @Field(() => String, {
-    nullable: true,
+    nullable: false,
   })
-  lastName?: string | null;
+  lastName?: string;
 
   @ApiProperty({
     required: true,

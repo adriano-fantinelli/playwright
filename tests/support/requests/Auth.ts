@@ -1,5 +1,5 @@
 import { APIRequestContext } from '@playwright/test';
-const commonsFixture = require('../fixtures/commons.json')
+import commonsFixture from '../fixtures/commons.json';
 const loginPath = "/login";
 
 export class AuthRequests {

@@ -33,7 +33,7 @@ export class UserControllerBase {
   constructor(
     protected readonly service: UserService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
-  ) {}
+  ) { }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @nestAccessControl.UseRoles({
@@ -45,18 +45,28 @@ export class UserControllerBase {
   @swagger.ApiCreatedResponse({ type: User })
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
   async create(@common.Body() data: UserCreateInput): Promise<User> {
-    return await this.service.create({
-      data: data,
-      select: {
-        createdAt: true,
-        firstName: true,
-        id: true,
-        lastName: true,
-        roles: true,
-        updatedAt: true,
-        username: true,
-      },
-    });
+    try {
+      return await this.service.create({
+        data: data,
+        select: {
+          createdAt: true,
+          firstName: true,
+          id: true,
+          lastName: true,
+          roles: true,
+          updatedAt: true,
+          username: true,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('already exists')) {
+          throw new common.ConflictException("User with this username already exists");
+        }
+        throw new common.InternalServerErrorException("User with this username already exists");
+      }
+      throw new common.InternalServerErrorException('An unknown error occurred');
+    }
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

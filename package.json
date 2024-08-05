@@ -16,7 +16,9 @@
   },
   "homepage": "https://github.com/adriano-fantinelli/playwright#readme",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@playwright/test": "^1.42.0",
-    "@types/node": "^20.11.21"
+    "faker": "^5.5.3",
+    "joi": "^17.13.3"
   }
 }

@@ -1,19 +1,25 @@
-const { request } = require('playwright');
-const commonsFixture = require('../fixtures/commons.json')
+import { APIRequestContext } from '@playwright/test';
+import commonsFixture from '../fixtures/commons.json';
 const usersPath = "/users";
 
 export class UsersRequests {
+    private requestContext: APIRequestContext;
 
-    constructor(){
+    constructor(requestContext: APIRequestContext) {
+        this.requestContext = requestContext;
     }
 
-    postUser(body: object, headers: object) {
-        (async () => {
-            const response = await request.post(commonsFixture.baseUrlApi + usersPath, {
-                data: body,
-                headers: headers
-            });
-            return response;
-        })();
-    }
+    async postUser(firstName: string, lastName: string, password: string, roles: Array<String>, username: string,  headers: { [key: string]: string }) {
+        const response = await this.requestContext.post(commonsFixture.baseUrlApi + usersPath, {
+            data: {
+                "firstName": firstName,
+                "lastName": lastName,
+                "password": password,
+                "roles": roles,
+                "username": username
+            },
+            headers: headers
+        });
+        return response;
+    };
 }

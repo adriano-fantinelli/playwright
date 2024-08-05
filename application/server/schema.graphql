@@ -375,8 +375,8 @@ type User {
 }
 
 input UserCreateInput {
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
   password: String!
   roles: [String!]!
   username: String!

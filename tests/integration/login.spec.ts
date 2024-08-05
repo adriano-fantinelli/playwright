@@ -3,7 +3,7 @@ import { LoginPage } from '../support/pages/LoginPage';
 import { HomePage } from '../support/pages/HomePage';
 import loginFixture from '../support/fixtures/login.json';
 
-test('Login with valid credentials', async ({ page }) => {
+test('Login with valid credentials @E2E', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const homePage = new HomePage(page);
 
@@ -14,7 +14,7 @@ test('Login with valid credentials', async ({ page }) => {
   await homePage.assertProfileUsername(loginFixture.username.valid)
 });
 
-test('Login with invalid username', async ({ page }) => {
+test('Login with invalid username @E2E', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.openLoginPage();
@@ -24,7 +24,7 @@ test('Login with invalid username', async ({ page }) => {
   await loginPage.assertAlert(loginFixture.messages.invalidEmailOrPassword)
 });
 
-test('Login with invalid password', async ({ page }) => {
+test('Login with invalid password @E2E', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.openLoginPage();
@@ -34,7 +34,7 @@ test('Login with invalid password', async ({ page }) => {
   await loginPage.assertAlert(loginFixture.messages.invalidEmailOrPassword)
 });
 
-test('Login with blank username', async ({ page }) => {
+test('Login with blank username @E2E', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.openLoginPage();
@@ -43,7 +43,7 @@ test('Login with blank username', async ({ page }) => {
   await loginPage.assertAlert(loginFixture.messages.invalidEmailOrPassword)
 });
 
-test('Login with blank password', async ({ page }) => {
+test('Login with blank password @E2E', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.openLoginPage();
