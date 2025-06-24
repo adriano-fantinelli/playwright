@@ -1,6 +1,6 @@
 import { test, expect, request } from '@playwright/test'
-import { UsersRequests } from '../support/requests/Users'
-import { AuthRequests } from '../support/requests/Auth'
+import { UsersRequests } from '../support/services/UserService'
+import { AuthRequests } from '../support/services/AuthService'
 import loginFixture from '../support/fixtures/login.json'
 import commonsFixture from '../support/fixtures/commons.json'
 import usersFixture from '../support/fixtures/users.json'
@@ -10,7 +10,7 @@ import userSchema from '../support/contracts/users.contract'
 const authorization = "Authorization"
 const bearer = "Bearer "
 
-test('Post user with valid data @API', async ({}) => {
+test('Post user with valid data', { tag: ['@api'] }, async ({}) => {
     const requestContext = await request.newContext()
     const authRequests = new AuthRequests(requestContext)
     const usersRequests = new UsersRequests(requestContext)
@@ -48,7 +48,7 @@ test('Post user with valid data @API', async ({}) => {
     userSchema.validateAsync(responseBodyPostUser)
 });
 
-test('Post user with repeated username @API', async ({}) => {
+test('Post user with repeated username', { tag: ['@api'] }, async ({}) => {
     const requestContext = await request.newContext()
     const authRequests = new AuthRequests(requestContext)
     const usersRequests = new UsersRequests(requestContext)
